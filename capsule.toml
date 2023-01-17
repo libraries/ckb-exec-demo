@@ -13,3 +13,7 @@ deployment = "deployment.toml"
 [[contracts]]
 name = "ckb-exec-demo"
 template_type = "Rust"
+
+[[contracts]]
+name = "always-failure"
+template_type = "Rust"
