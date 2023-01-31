@@ -24,18 +24,16 @@ fn test_success() {
     let contract_bin: Bytes = Loader::default().load_binary("ckb-exec-demo");
     let out_point = context.deploy_cell(contract_bin);
 
-    let always_failure_bin = {
+    let echo_bin = {
         let mut buf = Vec::new();
-        File::open("../build/debug/always-failure")
+        File::open("../build/debug/echo")
             .unwrap()
             .read_to_end(&mut buf)
             .expect("read code");
         Bytes::from(buf)
     };
-    let always_failure_out_point = context.deploy_cell(always_failure_bin);
-    let always_failure_dep = CellDep::new_builder()
-        .out_point(always_failure_out_point)
-        .build();
+    let echo_out_point = context.deploy_cell(echo_bin);
+    let echo_dep = CellDep::new_builder().out_point(echo_out_point).build();
 
     // prepare scripts
     let lock_script = context
@@ -73,7 +71,7 @@ fn test_success() {
         .outputs(outputs)
         .outputs_data(outputs_data.pack())
         .cell_dep(lock_script_dep)
-        .cell_dep(always_failure_dep.clone())
+        .cell_dep(echo_dep)
         .build();
     let tx = context.complete_tx(tx);
 

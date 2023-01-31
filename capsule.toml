@@ -15,5 +15,5 @@ name = "ckb-exec-demo"
 template_type = "Rust"
 
 [[contracts]]
-name = "always-failure"
+name = "echo"
 template_type = "Rust"

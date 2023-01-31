@@ -13,6 +13,7 @@
 
 mod error;
 
+use ckb_std::cstr_core::CStr;
 use ckb_std::default_alloc;
 use core::arch::asm;
 
@@ -22,6 +23,15 @@ default_alloc!();
 /// program entry
 ///
 ///  Both `argc` and `argv` can be omitted.
-fn program_entry(_argc: u64, _argv: *const *const u8) -> i8 {
-    return 42;
+fn program_entry(argc: u64, argv: *const *const u8) -> i8 {
+    // This script will always return 0 if used alone.
+    if argc == 0 {
+        return 0;
+    };
+
+    // When calling the script by exec and passing in the arguments.
+    let args = unsafe { core::slice::from_raw_parts(argv, argc as usize) };
+    let arg1 = unsafe { CStr::from_ptr(args[0]) }.to_str().unwrap();
+    let exit = arg1.parse::<i8>().unwrap();
+    return exit;
 }

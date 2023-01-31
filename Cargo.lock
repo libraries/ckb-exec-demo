@@ -20,13 +20,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "always-failure"
-version = "0.1.0"
-dependencies = [
- "ckb-std",
-]
-
-[[package]]
 name = "anyhow"
 version = "1.0.68"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -561,6 +554,13 @@ name = "eaglesong"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d978bd5d343e8ab9b5c0fc8d93ff9c602fdc96616ffff9c05ac7a155419b824"
+
+[[package]]
+name = "echo"
+version = "0.1.0"
+dependencies = [
+ "ckb-std",
+]
 
 [[package]]
 name = "faketime"

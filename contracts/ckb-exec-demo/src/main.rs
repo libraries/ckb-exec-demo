@@ -13,6 +13,7 @@
 
 mod error;
 
+use ckb_std::cstr_core::CStr;
 use ckb_std::{ckb_constants::Source, default_alloc, syscalls::exec};
 use core::arch::asm;
 
@@ -23,7 +24,13 @@ default_alloc!();
 ///
 ///  Both `argc` and `argv` can be omitted.
 fn program_entry(_argc: u64, _argv: *const *const u8) -> i8 {
-    let r = exec(0, Source::CellDep, 0, 0, &[]);
+    let r = exec(
+        0,
+        Source::CellDep,
+        0,
+        0,
+        &[&CStr::from_bytes_with_nul(b"42\0").unwrap()],
+    );
     if r != 0 {
         return 10;
     }
